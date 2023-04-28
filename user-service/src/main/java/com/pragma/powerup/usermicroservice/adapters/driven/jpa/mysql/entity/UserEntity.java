@@ -26,7 +26,7 @@ public class UserEntity {
     @ManyToOne(cascade = CascadeType.REMOVE)
     @JoinColumn(name = "id_person")
     private PersonEntity personEntity;
-    @ManyToOne(cascade = CascadeType.REMOVE)
+    @ManyToOne
     @JoinColumn(name = "id_role")
     private RoleEntity roleEntity;
 }

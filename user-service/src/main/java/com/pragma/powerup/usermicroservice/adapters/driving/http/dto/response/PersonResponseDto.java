@@ -8,6 +8,7 @@ import lombok.Getter;
 public class PersonResponseDto {
     private String name;
     private String surname;
+    private String birthdate;
     private String mail;
     private String phone;
     private String address;
