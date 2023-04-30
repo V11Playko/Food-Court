@@ -1,0 +1,27 @@
+#Application Configuration
+server:
+  port: 8091
+
+spring:
+  application:
+    name: user-service
+  datasource:
+    url: jdbc:mysql://localhost:3306/user-service
+    username: root
+    password: komodor11
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8099/eureka
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+appDescription: "Food Court"
+appVersion: "1.0.0"
