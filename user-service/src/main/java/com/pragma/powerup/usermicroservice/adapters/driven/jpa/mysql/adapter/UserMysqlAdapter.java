@@ -1,7 +1,11 @@
 package com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.adapter;
 
+import com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.exceptions.ClientNotFoundException;
+import com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.exceptions.EmployeeNotFoundException;
 import com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.exceptions.NoDataFoundException;
+import com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.exceptions.OwnerNotFoundException;
 import com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.exceptions.PersonNotFoundException;
+import com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.exceptions.ProvidedNotFoundException;
 import com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.exceptions.RoleNotAllowedForCreationException;
 import com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.exceptions.RoleNotFoundException;
 import com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.exceptions.UserAlreadyExistsException;
@@ -23,6 +27,7 @@ import java.util.List;
 import static com.pragma.powerup.usermicroservice.configuration.Constants.CLIENT_ROLE_ID;
 import static com.pragma.powerup.usermicroservice.configuration.Constants.EMPLOYEE_ROLE_ID;
 import static com.pragma.powerup.usermicroservice.configuration.Constants.MAX_PAGE_SIZE;
+import static com.pragma.powerup.usermicroservice.configuration.Constants.OWNER_ROLE_ID;
 import static com.pragma.powerup.usermicroservice.configuration.Constants.PROVIDER_ROLE_ID;
 
 @RequiredArgsConstructor
@@ -68,19 +73,25 @@ public class UserMysqlAdapter implements IUserPersistencePort {
 
     @Override
     public User getProvider(Long id) {
-        UserEntity userEntity = userRepository.findByPersonEntityIdAndRoleEntityId(id, PROVIDER_ROLE_ID).orElseThrow(UserNotFoundException::new);
+        UserEntity userEntity = userRepository.findByPersonEntityIdAndRoleEntityId(id, PROVIDER_ROLE_ID).orElseThrow(ProvidedNotFoundException::new);
+        return userEntityMapper.toUser(userEntity);
+    }
+
+    @Override
+    public User getOwner(Long id) {
+        UserEntity userEntity = userRepository.findByPersonEntityIdAndRoleEntityId(id, OWNER_ROLE_ID).orElseThrow(OwnerNotFoundException::new);
         return userEntityMapper.toUser(userEntity);
     }
 
     @Override
     public User getEmployee(Long id) {
-        UserEntity userEntity = userRepository.findByPersonEntityIdAndRoleEntityId(id, EMPLOYEE_ROLE_ID).orElseThrow(UserNotFoundException::new);
+        UserEntity userEntity = userRepository.findByPersonEntityIdAndRoleEntityId(id, EMPLOYEE_ROLE_ID).orElseThrow(EmployeeNotFoundException::new);
         return userEntityMapper.toUser(userEntity);
     }
 
     @Override
     public User getClient(Long id) {
-        UserEntity userEntity = userRepository.findByPersonEntityIdAndRoleEntityId(id, CLIENT_ROLE_ID).orElseThrow(UserNotFoundException::new);
+        UserEntity userEntity = userRepository.findByPersonEntityIdAndRoleEntityId(id, CLIENT_ROLE_ID).orElseThrow(ClientNotFoundException::new);
         return userEntityMapper.toUser(userEntity);
     }
 }

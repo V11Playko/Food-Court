@@ -80,6 +80,16 @@ public class UserRestController {
     public ResponseEntity<PersonResponseDto> getProvider(@PathVariable Long id) {
         return ResponseEntity.ok(userHandler.getProvider(id));
     }
+    @Operation(summary = "Get a owner user",
+            responses = {
+                    @ApiResponse(responseCode = "200", description = "Owner user returned",
+                            content = @Content(mediaType = "application/json", schema = @Schema(implementation = PersonResponseDto.class))),
+                    @ApiResponse(responseCode = "404", description = "User not found with owner role",
+                            content = @Content(mediaType = "application/json", schema = @Schema(ref = "#/components/schemas/Error")))})
+    @GetMapping("/owner/{id}")
+    public ResponseEntity<PersonResponseDto> getOwner(@PathVariable Long id) {
+        return ResponseEntity.ok(userHandler.getOwner(id));
+    }
     @Operation(summary = "Get a employee user",
             responses = {
                     @ApiResponse(responseCode = "200", description = "Employee user returned",

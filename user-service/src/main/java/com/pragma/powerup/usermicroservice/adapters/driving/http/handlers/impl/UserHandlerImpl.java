@@ -40,6 +40,11 @@ public class UserHandlerImpl implements IUserHandler {
     }
 
     @Override
+    public PersonResponseDto getOwner(Long id) {
+        return personResponseMapper.userToPersonResponse(userServicePort.getOwner(id));
+    }
+
+    @Override
     public PersonResponseDto getEmployee(Long id) {
         return personResponseMapper.userToPersonResponse(userServicePort.getEmployee(id));
     }
