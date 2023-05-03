@@ -1,15 +1,16 @@
 package com.pragma.powerup.usermicroservice.domain.validations;
 
-import com.pragma.powerup.usermicroservice.domain.model.Person;
+
+import com.pragma.powerup.usermicroservice.domain.model.User;
 
 import java.time.LocalDate;
 import java.time.Period;
 import java.time.format.DateTimeParseException;
 
-public class PersonValid {
+public class UserValid {
 
-    public static boolean heIsOlder(Person person) {
-        String fechaNacimiento = String.valueOf(person.getBirthdate());
+    public static boolean heIsOlder(User user) {
+        String fechaNacimiento = String.valueOf(user.getBirthdate());
         try {
             LocalDate fecha = LocalDate.parse(fechaNacimiento);
             LocalDate ahora = LocalDate.now();

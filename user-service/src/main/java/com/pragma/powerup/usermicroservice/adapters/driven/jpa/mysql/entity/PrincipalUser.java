@@ -2,6 +2,7 @@ package com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.entity;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
@@ -24,7 +25,7 @@ public class PrincipalUser implements UserDetails {
         this.authorities = authorities;
     }
 
-    public static PrincipalUser build(PersonEntity usuario, List<RoleEntity> roles) {
+    public static PrincipalUser build(UserEntity usuario, List<RoleEntity> roles) {
         List<GrantedAuthority> authorities = roles.stream()
                 .map(rol -> new SimpleGrantedAuthority(rol.getName())).collect(Collectors.toList());
         return new PrincipalUser(usuario.getName(), usuario.getDniNumber(), usuario.getMail(),

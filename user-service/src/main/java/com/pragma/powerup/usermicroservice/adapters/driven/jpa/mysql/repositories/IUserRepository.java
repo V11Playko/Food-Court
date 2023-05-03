@@ -8,8 +8,11 @@ import java.util.List;
 import java.util.Optional;
 
 public interface IUserRepository extends JpaRepository<UserEntity, Long> {
-    Optional<UserEntity> findByPersonEntityIdAndRoleEntityId(Long idPerson, Long idRole);
-    void deleteByPersonEntityIdAndRoleEntityId(Long idPerson, Long idRole);
+    Optional<UserEntity> findByIdAndRoleEntityId(Long idUser, Long idRole);
+    void deleteByIdAndRoleEntityId(Long idUser, Long idRole);
     List<UserEntity> findAllByRoleEntityId(Long idRole, Pageable pageable);
-    List<UserEntity> findAllByPersonEntityId(Long idPerson);
+    List<UserEntity> findAllById(Long idUser);
+    Optional<UserEntity> findByDniNumber(String dniNumber);
+    Boolean existsByDniNumber(String dniNumber);
+    boolean existsByMail(String mail);
 }

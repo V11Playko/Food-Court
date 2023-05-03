@@ -2,8 +2,6 @@ package com.pragma.powerup.usermicroservice.configuration;
 
 import com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.exceptions.MailAlreadyExistsException;
 import com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.exceptions.NoDataFoundException;
-import com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.exceptions.PersonAlreadyExistsException;
-import com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.exceptions.PersonNotFoundException;
 import com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.exceptions.RoleNotAllowedForCreationException;
 import com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.exceptions.RoleNotFoundException;
 import com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.exceptions.UserAlreadyExistsException;
@@ -61,24 +59,12 @@ public class ControllerAdvisor {
         return ResponseEntity.status(HttpStatus.NOT_FOUND)
                 .body(Collections.singletonMap(RESPONSE_ERROR_MESSAGE_KEY, NO_DATA_FOUND_MESSAGE));
     }
-    @ExceptionHandler(PersonAlreadyExistsException.class)
-    public ResponseEntity<Map<String, String>> handlePersonAlreadyExistsException(
-            PersonAlreadyExistsException personAlreadyExistsException) {
-        return ResponseEntity.status(HttpStatus.CONFLICT)
-                .body(Collections.singletonMap(RESPONSE_ERROR_MESSAGE_KEY, PERSON_ALREADY_EXISTS_MESSAGE));
-    }
 
     @ExceptionHandler(MailAlreadyExistsException.class)
     public ResponseEntity<Map<String, String>> handleMailAlreadyExistsException(
             MailAlreadyExistsException mailAlreadyExistsException) {
         return ResponseEntity.status(HttpStatus.CONFLICT)
                 .body(Collections.singletonMap(RESPONSE_ERROR_MESSAGE_KEY, MAIL_ALREADY_EXISTS_MESSAGE));
-    }
-    @ExceptionHandler(PersonNotFoundException.class)
-    public ResponseEntity<Map<String, String>> handlePersonNotFoundException(
-            PersonNotFoundException personNotFoundException) {
-        return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                .body(Collections.singletonMap(RESPONSE_ERROR_MESSAGE_KEY, PERSON_NOT_FOUND_MESSAGE));
     }
     @ExceptionHandler(RoleNotAllowedForCreationException.class)
     public ResponseEntity<Map<String, String>> handleRoleNotAllowedForCreationException(
