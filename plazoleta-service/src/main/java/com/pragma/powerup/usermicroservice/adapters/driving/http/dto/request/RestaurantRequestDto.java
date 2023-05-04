@@ -11,6 +11,7 @@ import lombok.Setter;
 @AllArgsConstructor
 public class RestaurantRequestDto {
     @NotBlank(message = "Field 'name' it's required")
+    @Pattern(regexp = "^(?=.*[a-zA-Z])[a-zA-Z0-9]+$", message = "Field 'name' allows numbers but the name of the restaurant cannot be just numbers")
     private String name;
     @NotBlank(message = "Field 'address' it's required")
     private String address;
@@ -22,6 +23,7 @@ public class RestaurantRequestDto {
     private String phone;
     @NotBlank(message = "Field 'urlLogo' it's required")
     private String urlLogo;
+    @Pattern(regexp = "^[0-9]+$", message = "Field 'NIT' only numbers are allowed")
     @NotBlank(message = "Field 'NIT' it's required")
     private String nit;
 }
