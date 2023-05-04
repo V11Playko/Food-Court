@@ -1,11 +1,11 @@
 package com.pragma.powerup.usermicroservice.domain.usecase;
 
+import com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.exceptions.DataRequired;
+import com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.exceptions.IsHolder;
 import com.pragma.powerup.usermicroservice.domain.api.IUserServicePort;
 import com.pragma.powerup.usermicroservice.domain.model.User;
 import com.pragma.powerup.usermicroservice.domain.spi.IUserPersistencePort;
 import com.pragma.powerup.usermicroservice.domain.validations.UserValid;
-import org.springframework.http.HttpStatus;
-import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
@@ -21,12 +21,12 @@ public class UserUseCase implements IUserServicePort {
         if (user.getName() == null || user.getSurname() == null || user.getBirthdate() == null ||
                 user.getMail() == null || user.getDniNumber() == null ||
                 user.getPassword() == null) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST,"All data are required.");
+            throw new DataRequired();
         }
-        if (UserValid.heIsOlder(user)) {
+        if (UserValid.isOlder(user)) {
             userPersistencePort.saveUser(user);
         } else {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST,"Tienes que ser mayor de edad");
+            throw new IsHolder();
         }
     }
 

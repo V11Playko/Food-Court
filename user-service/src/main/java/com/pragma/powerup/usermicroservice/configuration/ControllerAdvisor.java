@@ -1,5 +1,7 @@
 package com.pragma.powerup.usermicroservice.configuration;
 
+import com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.exceptions.DataRequired;
+import com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.exceptions.IsHolder;
 import com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.exceptions.MailAlreadyExistsException;
 import com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.exceptions.NoDataFoundException;
 import com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.exceptions.RoleNotAllowedForCreationException;
@@ -20,10 +22,10 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
+import static com.pragma.powerup.usermicroservice.configuration.Constants.DATA_REQUIRED;
+import static com.pragma.powerup.usermicroservice.configuration.Constants.IS_HOLDER;
 import static com.pragma.powerup.usermicroservice.configuration.Constants.MAIL_ALREADY_EXISTS_MESSAGE;
 import static com.pragma.powerup.usermicroservice.configuration.Constants.NO_DATA_FOUND_MESSAGE;
-import static com.pragma.powerup.usermicroservice.configuration.Constants.PERSON_ALREADY_EXISTS_MESSAGE;
-import static com.pragma.powerup.usermicroservice.configuration.Constants.PERSON_NOT_FOUND_MESSAGE;
 import static com.pragma.powerup.usermicroservice.configuration.Constants.RESPONSE_ERROR_MESSAGE_KEY;
 import static com.pragma.powerup.usermicroservice.configuration.Constants.ROLE_NOT_ALLOWED_MESSAGE;
 import static com.pragma.powerup.usermicroservice.configuration.Constants.ROLE_NOT_FOUND_MESSAGE;
@@ -89,5 +91,17 @@ public class ControllerAdvisor {
             RoleNotFoundException roleNotFoundException) {
         return ResponseEntity.status(HttpStatus.NOT_FOUND)
                 .body(Collections.singletonMap(RESPONSE_ERROR_MESSAGE_KEY, ROLE_NOT_FOUND_MESSAGE));
+    }
+    @ExceptionHandler(DataRequired.class)
+    public ResponseEntity<Map<String, String>> handleUseCaseDataRequiredNotFoundException(
+            DataRequired dataRequired) {
+        return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY)
+                .body(Collections.singletonMap(RESPONSE_ERROR_MESSAGE_KEY, DATA_REQUIRED));
+    }
+    @ExceptionHandler(IsHolder.class)
+    public ResponseEntity<Map<String, String>> mustBeOfLegalAgeExceptionNotFound(
+            IsHolder isHolder) {
+        return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY)
+                .body(Collections.singletonMap(RESPONSE_ERROR_MESSAGE_KEY, IS_HOLDER));
     }
 }

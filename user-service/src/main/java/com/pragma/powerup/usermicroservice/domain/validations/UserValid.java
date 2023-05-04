@@ -9,7 +9,7 @@ import java.time.format.DateTimeParseException;
 
 public class UserValid {
 
-    public static boolean heIsOlder(User user) {
+    public static boolean isOlder(User user) {
         String fechaNacimiento = String.valueOf(user.getBirthdate());
         try {
             LocalDate fecha = LocalDate.parse(fechaNacimiento);
