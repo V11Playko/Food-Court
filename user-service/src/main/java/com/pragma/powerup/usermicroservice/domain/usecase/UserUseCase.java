@@ -1,7 +1,7 @@
 package com.pragma.powerup.usermicroservice.domain.usecase;
 
 import com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.exceptions.DataRequired;
-import com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.exceptions.IsHolder;
+import com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.exceptions.IsOlder;
 import com.pragma.powerup.usermicroservice.domain.api.IUserServicePort;
 import com.pragma.powerup.usermicroservice.domain.model.User;
 import com.pragma.powerup.usermicroservice.domain.spi.IUserPersistencePort;
@@ -26,7 +26,7 @@ public class UserUseCase implements IUserServicePort {
         if (UserValid.isOlder(user)) {
             userPersistencePort.saveUser(user);
         } else {
-            throw new IsHolder();
+            throw new IsOlder();
         }
     }
 

@@ -1,7 +1,7 @@
 package com.pragma.powerup.usermicroservice.configuration;
 
 import com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.exceptions.DataRequired;
-import com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.exceptions.IsHolder;
+import com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.exceptions.IsOlder;
 import com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.exceptions.MailAlreadyExistsException;
 import com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.exceptions.NoDataFoundException;
 import com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.exceptions.RoleNotAllowedForCreationException;
@@ -23,7 +23,7 @@ import java.util.List;
 import java.util.Map;
 
 import static com.pragma.powerup.usermicroservice.configuration.Constants.DATA_REQUIRED;
-import static com.pragma.powerup.usermicroservice.configuration.Constants.IS_HOLDER;
+import static com.pragma.powerup.usermicroservice.configuration.Constants.IS_OLDER;
 import static com.pragma.powerup.usermicroservice.configuration.Constants.MAIL_ALREADY_EXISTS_MESSAGE;
 import static com.pragma.powerup.usermicroservice.configuration.Constants.NO_DATA_FOUND_MESSAGE;
 import static com.pragma.powerup.usermicroservice.configuration.Constants.RESPONSE_ERROR_MESSAGE_KEY;
@@ -98,10 +98,10 @@ public class ControllerAdvisor {
         return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY)
                 .body(Collections.singletonMap(RESPONSE_ERROR_MESSAGE_KEY, DATA_REQUIRED));
     }
-    @ExceptionHandler(IsHolder.class)
+    @ExceptionHandler(IsOlder.class)
     public ResponseEntity<Map<String, String>> mustBeOfLegalAgeExceptionNotFound(
-            IsHolder isHolder) {
+            IsOlder isHolder) {
         return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY)
-                .body(Collections.singletonMap(RESPONSE_ERROR_MESSAGE_KEY, IS_HOLDER));
+                .body(Collections.singletonMap(RESPONSE_ERROR_MESSAGE_KEY, IS_OLDER));
     }
 }
