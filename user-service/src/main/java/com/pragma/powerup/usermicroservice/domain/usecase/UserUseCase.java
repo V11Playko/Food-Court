@@ -18,11 +18,6 @@ public class UserUseCase implements IUserServicePort {
 
     @Override
     public void saveUser(User user) {
-        if (user.getName() == null || user.getSurname() == null || user.getBirthdate() == null ||
-                user.getMail() == null || user.getDniNumber() == null ||
-                user.getPassword() == null) {
-            throw new DataRequired();
-        }
         if (UserValid.isOlder(user)) {
             userPersistencePort.saveUser(user);
         } else {

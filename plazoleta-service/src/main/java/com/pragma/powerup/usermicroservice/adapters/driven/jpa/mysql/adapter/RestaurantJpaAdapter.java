@@ -5,7 +5,7 @@ import com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.entity.Rest
 import com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.mappers.IRestaurantEntityMapper;
 import com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.repositories.IRestaurantRepository;
 import com.pragma.powerup.usermicroservice.domain.model.RestaurantModel;
-import com.pragma.powerup.usermicroservice.domain.spi.IRestaurantPersistencePort;
+import com.pragma.powerup.usermicroservice.domain.ports.IRestaurantPersistencePort;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
